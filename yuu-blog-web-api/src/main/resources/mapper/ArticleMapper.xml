@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyh.yuu.blog.web.api.dao.ArticleDao">
+    <sql id="articleColumns">
+        a.id,
+        a.cid,
+        a.aname,
+        a.author,
+        a.click,
+        a.content,
+        a.html,
+        a.created,
+        a.updated
+    </sql>
+
+    <select id="getNum" parameterType="int" resultType="int">
+        select
+          count(*)
+        from
+          article
+        <where>
+            <if test="cid != null">cid = #{cid}</if>
+        </where>
+    </select>
+
+    <select id="list" parameterType="int" resultType="Article">
+        select
+          <include refid="articleColumns"/>
+        from
+          article AS a
+        <where>
+            <if test="cid != null">cid = #{cid}</if>
+        </where>
+    </select>
+
+    <select id="getByName" parameterType="string" resultType="Article">
+        select
+          <include refid="articleColumns"/>
+        from
+          article AS a
+        where aname = #{aname}
+    </select>
+</mapper>

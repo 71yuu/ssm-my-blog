@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyh.yuu.blog.web.api.dao.MainDao">
+    <sql id="mainColumns">
+        a.id,
+        a.h1,
+        a.h2,
+        a.h3,
+        a.img,
+        a.h4,
+        a.created,
+        a.updated
+    </sql>
+
+    <select id="getMain" resultType="Main">
+        select
+        <include refid="mainColumns"/>
+        from main AS a
+        where id = 1
+    </select>
+</mapper>

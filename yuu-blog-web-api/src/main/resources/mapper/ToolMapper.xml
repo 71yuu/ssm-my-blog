@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyh.yuu.blog.web.api.dao.ToolDao">
+    <sql id="toolColumns">
+        a.id,
+        a.pid,
+        a.isparent,
+        a.tname,
+        a.link,
+        a.created,
+        a.updated
+    </sql>
+
+    <select id="getParent" resultType="Tool">
+        select
+          <include refid="toolColumns"/>
+        from tool AS a
+        where isparent = 1
+    </select>
+
+    <select id="getItem" resultType="Tool">
+        select
+          <include refid="toolColumns"/>
+        from tool AS a
+        where isparent = 0
+    </select>
+</mapper>

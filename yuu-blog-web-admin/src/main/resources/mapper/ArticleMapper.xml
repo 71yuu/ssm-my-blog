@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyh.yuu.blog.web.admin.dao.ArticleDao">
+    <sql id="articleColumns">
+        a.id,
+        a.cid,
+        a.aname,
+        a.author,
+        a.click,
+        a.content,
+        a.created,
+        a.updated
+    </sql>
+
+    <insert id="save" parameterType="Article">
+        insert into article (
+            cid, aname, author, content, html, created, updated
+        )
+        values (
+           #{cid}, #{aname}, #{author}, #{content}, #{html}, now(), now()
+        )
+    </insert>
+
+    <select id="getAll" resultType="Article">
+        select
+          <include refid="articleColumns"/>
+        from article AS a
+    </select>
+
+    <select id="getById" parameterType="int" resultType="Article">
+        select
+          <include refid="articleColumns"/>
+        from article AS a
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="Article">
+        update article
+        <trim prefix="set" suffixOverrides=",">
+            <if test="cid != null">cid = #{cid},</if>
+            <if test="aname != null">aname = #{aname},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="html != null">html = #{html},</if>
+            updated = now()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        delete from article
+        where id = #{id}
+    </delete>
+
+    <select id="search" parameterType="map" resultType="Article">
+        select
+         <include refid="articleColumns"/>
+        from
+        article AS a
+        <where>
+            <if test="cid != null">
+                AND a.cid LIKE CONCAT ('%', #{cid}, '%')
+            </if>
+            <if test="aname != null">
+                AND a.aname LIKE CONCAT ('%', #{aname}, '%')
+            </if>
+        </where>
+        ORDER BY a.updated DESC
+    </select>
+
+    <select id="getArticleNum" resultType="int">
+        select count(*)
+        from article
+    </select>
+
+    <select id="getClickNum" resultType="int">
+        select sum(click)
+        from article
+    </select>
+
+    <select id="getNew" resultType="Article">
+        select
+          <include refid="articleColumns"/>
+        from article AS a
+        order by created desc limit 0, 10
+    </select>
+
+    <select id="page" resultType="Article" parameterType="map">
+        SELECT
+        <include refid="articleColumns" />
+        FROM article AS a
+        <where>
+            <if test="cid != null">
+                AND a.cid LIKE CONCAT ('%', #{cid}, '%')
+            </if>
+            <if test="key != null">
+                AND a.aname LIKE CONCAT ('%', #{key}, '%')
+            </if>
+        </where>
+        order by a.updated desc LIMIT #{page}, #{pageSize}
+    </select>
+
+</mapper>

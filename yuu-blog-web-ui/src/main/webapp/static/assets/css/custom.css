@@ -1,0 +1,114 @@
+/***************************
+Add your custom styles below
+****************************/
+
+/** {*/
+    /*font-family: "Microsoft YaHei" ! important;*/
+/*}*/
+
+/**
+ * 无序列表前增加 “实心圆”
+ */
+.container.post ul li {
+    margin-left: 20px;
+    list-style-type: disc;
+}
+/**
+ * 无序列表前增加 “空心圆”
+ */
+.container.post ul li > ul li {
+    margin-left: 40px;
+    list-style-type: circle;
+}
+
+/**
+ * 基本表格样式
+ */
+.container.post table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+.container.post table > thead > tr > th,
+.container.post table > tbody > tr > th,
+.container.post table > tfoot > tr > th,
+.container.post table > thead > tr > td,
+.container.post table > tbody > tr > td,
+.container.post table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+}
+.container.post table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dddddd;
+}
+
+/**
+ * 引用块文字居左
+ */
+.container.post blockquote {
+    text-align: left;
+}
+
+/**
+ * 图片居中
+ */
+.container.post img {
+    clear: both;
+    display: block;
+    margin:auto;
+}
+
+/**
+ * 分页样式
+ */
+.page-number {
+    transition: 0.2s linear;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+    display: inline-block;
+    width: 3.54545454545454em;
+    height: 3.54545454545454em;
+    line-height: 0;
+    padding-top: 4px;
+    text-align: center;
+    border-radius: 50% !important;
+    background: none;
+    border: none;
+    font-family: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+    color: #343434;
+    font-weight: 600;
+    font-variant-ligatures: common-ligatures;
+    margin-bottom: 0;
+    font-size: 0.625em;
+    line-height: 2.6em;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-bottom: 2.36363636363636em;
+}
+.page-number.current {
+    cursor: pointer;
+    background: #ececec;
+    color: #232323;
+}
+.page-number.current:hover {
+    background: #e7e7e7;
+    color: #232323;
+}
+.page-number:hover {
+    background: #efefef;
+    color: #232323;
+}
+
+@media screen and (max-width:768px) {
+    .masonry__item {
+        width: 100%;
+    }
+
+    .notification {
+        display: none;
+    }
+}

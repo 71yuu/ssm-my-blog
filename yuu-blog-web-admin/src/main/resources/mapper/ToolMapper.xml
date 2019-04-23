@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyh.yuu.blog.web.admin.dao.ToolDao">
+    <sql id="toolColumns">
+        a.id,
+        a.pid,
+        a.isparent AS isParent,
+        a.tname,
+        a.link,
+        a.created,
+        a.updated
+    </sql>
+
+    <select id="selectAll" resultType="Tool">
+        SELECT
+          <include refid="toolColumns"/>
+        FROM
+          tool AS a
+    </select>
+
+    <select id="getById" resultType="Tool" parameterType="int">
+        SELECT
+          <include refid="toolColumns"/>
+        FROM
+          tool AS a
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="Tool">
+        INSERT INTO tool (
+          pid,
+          isparent,
+          tname,
+          link,
+          created,
+          updated
+        )
+        VALUES
+        (
+          #{pid},
+          #{isParent},
+          #{tname},
+          #{link},
+          now(),
+          now()
+        )
+    </insert>
+
+    <update id="update" parameterType="Tool">
+        UPDATE
+          tool
+        SET
+          tname = #{tname},
+          link = #{link},
+          updated = now()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="string">
+        DELETE FROM tool
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByPid" parameterType="string">
+        DELETE FROM tool
+        WHERE pid = #{id}
+    </delete>
+</mapper>

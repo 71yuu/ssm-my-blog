@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyh.yuu.blog.web.admin.dao.ColumnDao">
+    <sql id="columnColumns">
+        a.id,
+        a.img,
+        a.cname,
+        a.describe,
+        a.created,
+        a.updated
+    </sql>
+
+    <insert id="save" parameterType="Column">
+        insert into `column`(
+        img, cname, `describe`, created, updated
+        )
+        values(
+        #{img}, #{cname}, #{describe}, now(), now()
+        )
+    </insert>
+
+    <select id="getAll" resultType="Column">
+        select
+          <include refid="columnColumns"/>
+        from `column` AS a
+    </select>
+
+    <select id="getById" parameterType="int" resultType="Column">
+        select
+          <include refid="columnColumns"/>
+        from `column` AS a
+        where id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        delete from
+        `column`
+        where
+          id = #{id}
+    </delete>
+
+    <update id="update" parameterType="Column">
+        update `column`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="img != null">img = #{img},</if>
+            <if test="cname != null">cname = #{cname},</if>
+            <if test="describe != null">`describe` = #{describe},</if>
+            updated = now()
+        </trim>
+        where id = #{id}
+    </update>
+
+    <select id="getColumnNum" resultType="int">
+        select count(*)
+        from article
+    </select>
+</mapper>

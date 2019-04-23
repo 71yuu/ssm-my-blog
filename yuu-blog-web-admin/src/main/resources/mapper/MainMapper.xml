@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyh.yuu.blog.web.admin.dao.MainDao">
+    <sql id="mainColumns">
+        a.id,
+        a.h1,
+        a.h2,
+        a.h3,
+        a.img,
+        a.h4,
+        a.created,
+        a.updated
+    </sql>
+    
+    <update id="insertImg" parameterType="string">
+        UPDATE main
+        SET
+        img = #{targetPath},
+        updated = now()
+        where id = '1'
+    </update>
+
+    <select id="getImgPath" resultType="string">
+        select
+        img
+        from main
+        where id = '1'
+    </select>
+
+    <select id="getMain" resultType="Main">
+        SELECT
+        <include refid="mainColumns"/>
+        FROM main AS a
+        where id = '1'
+    </select>
+
+    <select id="getMainByName" parameterType="string" resultType="Main">
+        SELECT
+        <include refid="mainColumns"/>
+        FROM main AS a
+        WHERE
+    </select>
+
+    <update id="saveBanner" parameterType="Main">
+      update main
+      set
+        <if test="h1 != null"> h1 = #{h1}</if>
+        <if test="h2 != null">h2 = #{h2}</if>
+        <if test="h3 != null">h3 = #{h3}</if>
+        <if test="h4 != null">h4 = #{h4}</if>
+      where id = '1'
+    </update>
+</mapper>
